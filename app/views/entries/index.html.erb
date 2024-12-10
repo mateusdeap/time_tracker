@@ -1,0 +1,17 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Entries" %>
+
+<h1>Entries</h1>
+
+<%= turbo_frame_tag "new_entry" do %>
+  <%= render partial: "form", locals: { entry: @entry } %>
+<% end %>
+
+<%= turbo_frame_tag "entries" do %>
+  <div id="entries">
+    <% @entries.each do |entry| %>
+      <%= render entry %>
+    <% end %>
+  </div>
+<% end %>
