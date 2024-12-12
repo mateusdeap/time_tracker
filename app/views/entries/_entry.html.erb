@@ -1,14 +1,7 @@
 <div id="<%= dom_id entry %>">
-  <p>
-    <strong>Start:</strong>
-    <%= entry.start %>
-  </p>
-
-  <p>
-    <strong>End:</strong>
-    <%= entry.end %>
-  </p>
-
+  <turbo-frame id="timer_<%= dom_id entry.timers.last %>" />
+    <%= render partial: "timer", locals: { entry: entry } %>
+  </turbo-frame>
   <p>
     <strong>Project:</strong>
     <%= entry.project %>
@@ -20,6 +13,14 @@
   </p>
 
 </div>
+<turbo-frame id="timer_<%= dom_id entry.timers.last %>" />
+  <%= form_with(model: entry) do |f| %>
+    <%= f.fields_for :timers do |ff| %>
+      <%= ff.hidden_field :end, {value: DateTime.now} %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</turbo-frame>
 <p>
   <%= link_to "Show this entry", entry %>
 </p>

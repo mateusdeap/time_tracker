@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_09_105108) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_12_161020) do
   create_table "entries", force: :cascade do |t|
-    t.datetime "start"
-    t.datetime "end"
     t.text "project"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "timers", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "entry_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entry_id"], name: "index_timers_on_entry_id"
+  end
+
+  add_foreign_key "timers", "entries"
 end

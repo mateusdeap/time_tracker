@@ -17,8 +17,8 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new(entry_params)
-    @entry.start = DateTime.now
+    @entry = Entry.new
+    @entry.timers << Timer.new(start: DateTime.now)
 
     if @entry.save
       respond_to do |format|
@@ -30,7 +30,6 @@ class EntriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /entries/1 or /entries/1.json
   def update
     respond_to do |format|
       if @entry.update(entry_params)
@@ -61,6 +60,6 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      params.expect(entry: [ :start, :end, :project, :description ])
+      params.expect(entry: [ :project, :description, timers_attributes: [[ :start, :end ]] ])
     end
 end
