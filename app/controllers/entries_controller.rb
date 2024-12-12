@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
   before_action :set_entry, only: %i[ show edit update destroy ]
 
   def index
-    @entries = Entry.all
+    @entries = Entry.all.order(created_at: :desc)
     @entry = Entry.new
   end
 
@@ -31,25 +31,20 @@ class EntriesController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: "Entry was successfully updated." }
-        format.json { render :show, status: :ok, location: @entry }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
+    if @entry.update(entry_params)
+      respond_to do |format|
+        format.html { redirect_to entries_path, notice: "Entry was successfully updated." }
+        format.turbo_stream
       end
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /entries/1 or /entries/1.json
   def destroy
     @entry.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to entries_path, status: :see_other, notice: "Entry was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    
+    redirect_to entries_path, status: :see_other, notice: "Entry was successfully destroyed." 
   end
 
   private

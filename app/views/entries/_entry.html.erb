@@ -1,7 +1,5 @@
 <div id="<%= dom_id entry %>">
-  <turbo-frame id="timer_<%= dom_id entry.timers.last %>" />
-    <%= render partial: "timer", locals: { entry: entry } %>
-  </turbo-frame>
+  <%= render partial: "timer", locals: { entry: entry } %>
   <p>
     <strong>Project:</strong>
     <%= entry.project %>
@@ -13,8 +11,8 @@
   </p>
 
 </div>
-<turbo-frame id="timer_<%= dom_id entry.timers.last %>" />
-  <%= form_with(model: entry) do |f| %>
+<turbo-frame id="timer_<%= dom_id entry %>" />
+  <%= form_with(model: entry, data: { turbo_frame: "timer_#{dom_id entry}" }) do |f| %>
     <%= f.fields_for :timers do |ff| %>
       <%= ff.hidden_field :end, {value: DateTime.now} %>
     <% end %>
