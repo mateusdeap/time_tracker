@@ -4,7 +4,7 @@
 
 <h1>Entries</h1>
 
-<%= turbo_frame_tag "new_entry" do %>
+<%= turbo_frame_tag "create_entry" do %>
   <%= render partial: "form", locals: { entry: @entry } %>
 <% end %>
 
