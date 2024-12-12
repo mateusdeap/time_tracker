@@ -1,13 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  start: 2024-12-09 07:51:08
-  end: 2024-12-09 07:51:08
   project: MyText
   description: MyText
 
 two:
-  start: 2024-12-09 07:51:08
-  end: 2024-12-09 07:51:08
-  project: MyText
-  description: MyText
+  project: MyText2
+  description: MyText2
