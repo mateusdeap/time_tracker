@@ -17,8 +17,7 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new
-    @entry.timers << Timer.new(start: DateTime.now)
+    @entry = Entry.new(start: DateTime.now)
 
     if @entry.save
       respond_to do |format|
@@ -55,6 +54,6 @@ class EntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def entry_params
-      params.expect(entry: [ :project, :description, timers_attributes: [[ :start, :end ]] ])
+      params.expect(entry: [ :project, :description, :start, :stop ])
     end
 end

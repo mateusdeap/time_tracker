@@ -35,7 +35,7 @@ class EntriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update entry" do
     patch entry_url(@entry), params: { entry: { description: @entry.description, project: @entry.project } }
-    assert_redirected_to entry_url(@entry)
+    assert_redirected_to entries_url
   end
 
   test "should destroy entry" do

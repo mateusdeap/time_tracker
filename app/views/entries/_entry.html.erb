@@ -11,14 +11,6 @@
   </p>
 
 </div>
-<turbo-frame id="timer_<%= dom_id entry %>" />
-  <%= form_with(model: entry, data: { turbo_frame: "timer_#{dom_id entry}" }) do |f| %>
-    <%= f.fields_for :timers do |ff| %>
-      <%= ff.hidden_field :end, {value: DateTime.now} %>
-    <% end %>
-    <%= f.submit %>
-  <% end %>
-</turbo-frame>
 <p>
   <%= link_to "Show this entry", entry %>
 </p>
