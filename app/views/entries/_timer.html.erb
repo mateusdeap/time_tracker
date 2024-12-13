@@ -1,11 +1,11 @@
 <turbo-frame id="timer_<%= dom_id entry %>" />
   <p>
     <strong>Start:</strong>
-    <%= entry.start %>
+    <p id="entry_<%= entry.id %>_start"><%= entry.start %></p>
   </p>
 
   <p>
     <strong>Time Elapsed:</strong>
-    <%= entry.time_elapsed %>
+    <p id="time_elapsed_<%= entry.id %>"><%= entry.time_elapsed %></p>
   </p>
 </turbo-frame>
