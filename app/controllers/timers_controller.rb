@@ -1,15 +1,19 @@
-module EntriesHelper
-  def timer_button_data_action(entry)
-    return "timer#stop" if entry.running?
+class TimersController < ApplicationController
+  def update
+    @entry = Entry.find(params[:id])
 
-    "timer#start"
+    @entry.timers << { start: DateTime.now } if params[:start]
+    @entry.timers << { stop: DateTime.now } if params[:stop]
+    @entry.save
+
+    respond_to do |format|
+      format.json { render json: {
+        elapsed_time: formatted_elapsed_time(@entry)
+      } }
+    end
   end
 
-  def timer_button_action(entry)
-    return "Stop" if entry.running?
-
-    "Start"
-  end
+  private
 
   def formatted_elapsed_time(entry)
     return "Timer running..." if entry.running?
@@ -31,11 +35,5 @@ module EntriesHelper
     return "00" if time == 0
 
     sprintf "%02d", time
-  end
-
-  def end_time(entry)
-    return "" if entry.last_stop_time == 0
-
-    entry.last_stop_time.to_fs(:full_time)
   end
 end

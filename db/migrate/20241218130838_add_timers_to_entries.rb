@@ -1,0 +1,5 @@
+class AddTimersToEntries < ActiveRecord::Migration[8.0]
+  def change
+    add_column :entries, :timers, :text
+  end
+end

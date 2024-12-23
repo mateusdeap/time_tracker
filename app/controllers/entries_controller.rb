@@ -17,7 +17,7 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new(start: DateTime.now)
+    @entry = Entry.new()
 
     if @entry.save
       respond_to do |format|
@@ -34,7 +34,7 @@ class EntriesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to entries_path, notice: "Entry was successfully updated." }
         format.turbo_stream
-        format.json { render json: { entry: @entry, time_elapsed: @entry.time_elapsed }, status: :ok }
+        format.json { render json: { entry: @entry }, status: :ok }
       end
     else
       render :edit, status: :unprocessable_entity
