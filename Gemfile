@@ -63,3 +63,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.0"
+
+gem "bundler-audit", "~> 0.9.2"
