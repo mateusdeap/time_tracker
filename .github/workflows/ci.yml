@@ -38,6 +38,22 @@ jobs:
       - name: Scan for vulnerabilities in dependencies
         run: bundle exec bundle-audit check --update
 
+  scan_leaks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Scan for memory leaks in dependencies
+        run: bundle exec bundle leak check --update
+
   lint:
     runs-on: ubuntu-latest
     steps:
