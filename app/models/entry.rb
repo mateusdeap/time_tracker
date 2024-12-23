@@ -1,14 +1,14 @@
 class Entry < ApplicationRecord
-  serialize :timers, type: Array, coder: YAML, yaml: { permitted_classes: [Symbol, DateTime, Time] }
+  serialize :timers, type: Array, coder: YAML, yaml: { permitted_classes: [ Symbol, DateTime, Time ] }
 
   before_create :initialize_timers_array
 
   def running?
-    return timers.last.has_key?(:start)
+    timers.last.has_key?(:start)
   end
 
   def initialize_timers_array
-    timers << {start: DateTime.now}
+    timers << { start: DateTime.now }
   end
 
   def elapsed_time_in_seconds

@@ -43,8 +43,8 @@ class EntriesController < ApplicationController
 
   def destroy
     @entry.destroy!
-    
-    redirect_to entries_path, status: :see_other, notice: "Entry was successfully destroyed." 
+
+    redirect_to entries_path, status: :see_other, notice: "Entry was successfully destroyed."
   end
 
   private
