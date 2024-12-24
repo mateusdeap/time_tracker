@@ -67,3 +67,5 @@ gem "tailwindcss-rails", "~> 3.0"
 gem "bundler-audit", "~> 0.9.2"
 
 gem "bundler-leak", "~> 0.3.0"
+
+gem "next_rails", "~> 1.4"
