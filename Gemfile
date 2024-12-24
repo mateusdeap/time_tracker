@@ -69,3 +69,5 @@ gem "bundler-audit", "~> 0.9.2"
 gem "bundler-leak", "~> 0.3.0"
 
 gem "next_rails", "~> 1.4"
+
+gem "libyear-bundler", "~> 0.8.0"

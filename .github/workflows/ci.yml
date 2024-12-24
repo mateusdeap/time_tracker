@@ -72,6 +72,27 @@ jobs:
           name: outdated-gems-report
           path: tmp/outdated.txt
 
+  libyear_report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Run libyear-bundler
+        run: |
+          bundle config unset deployment
+          bundle install
+          bundle exec libyear-bundler --all > tmp/libyear-report.txt
+      - name: Archive report
+        uses: actions/upload-artifact@v4
+        with:
+          name: libyear-report
+          path: tmp/libyear-report.txt
+
   lint:
     runs-on: ubuntu-latest
     steps:
