@@ -1,0 +1,3 @@
+mode_ci:
+  enabled: true
+no_browser: true

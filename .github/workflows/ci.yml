@@ -93,6 +93,24 @@ jobs:
           name: libyear-report
           path: tmp/libyear-report.txt
 
+  rubycritic_report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+      - name: Run libyear-bundler
+        run: bundle exec rubycritic app lib
+      - name: Archive report
+        uses: actions/upload-artifact@v4
+        with:
+          name: rubycritic
+          path: tmp/rubycritic/
+
   lint:
     runs-on: ubuntu-latest
     steps:

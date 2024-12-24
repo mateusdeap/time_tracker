@@ -71,3 +71,5 @@ gem "bundler-leak", "~> 0.3.0"
 gem "next_rails", "~> 1.4"
 
 gem "libyear-bundler", "~> 0.8.0"
+
+gem "rubycritic", "~> 4.9"
