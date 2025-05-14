@@ -1,3 +1,4 @@
-<%= form_with(model: entry, class: "border mb-3" ,data: { turbo_frame: "create_entry" }) do |f| %>
-  <%= f.submit %>
+<%= form_with(model: entry, class: "border mb-3 p-3 flex items-start gap-2") do |f| %>
+  <%= f.text_area :description, value: entry.description, class: "flex-grow border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-10 py-2" %>
+  <%= f.submit class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 h-10" %>
 <% end %>

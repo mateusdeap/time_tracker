@@ -30,6 +30,6 @@
 en:
   helpers:
     submit:
-      create: "Create Entry"
-      update: "Save Entry"
-      submit: "Create Entry"
+      create: "Save"
+      update: "Save"
+      submit: "Save"

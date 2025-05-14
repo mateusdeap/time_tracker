@@ -1,8 +1,8 @@
 <p style="color: green"><%= notice %></p>
 <% content_for :title, "Entries" %>
 <h1 class="text-5xl mb-6">Entries</h1>
-<%= turbo_frame_tag "create_entry" do %>
-  <%= render partial: "form", locals: { entry: @entry } %>
+<%= form_with(model: @entry, class: "border mb-3" ,data: { turbo_frame: "create_entry" }) do |f| %>
+  <%= f.submit %>
 <% end %>
 <%= turbo_frame_tag "entries" do %>
   <div id="entries" class="flex flex-col items-start gap-2">

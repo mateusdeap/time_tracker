@@ -1,14 +1,17 @@
-<div id="<%= dom_id entry %>">
+<div id="<%= dom_id entry %>" class="w-full">
   <p>
     <strong><%= entry.project %></strong>
   </p>
   <div class="text-2xl flex flex-row gap-2">
     <p id="elapsed_time_<%= entry.id %>"><%= formatted_elapsed_time(entry) %></p>
   </div>
-  <p>
-    <label>Description:</label>
-    <%= entry.description %>
-  </p>
+  <%= turbo_frame_tag "edit_entry_#{entry.id}" do %>
+    <%= link_to edit_entry_path(entry.id) do %>
+      <p class="text-sm text-slate-600">
+        <%= entry.description %>
+      </p>
+    <% end %>
+  <% end %>
 </div>
 <button
   type="button"
