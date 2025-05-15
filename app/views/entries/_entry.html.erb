@@ -8,7 +8,7 @@
   <%= turbo_frame_tag "edit_entry_#{entry.id}" do %>
     <%= link_to edit_entry_path(entry.id) do %>
       <p class="text-sm text-slate-600">
-        <%= entry.description %>
+        Description: <%= entry.description %>
       </p>
     <% end %>
   <% end %>

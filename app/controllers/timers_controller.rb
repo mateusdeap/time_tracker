@@ -1,4 +1,16 @@
 class TimersController < ApplicationController
+  def show
+    @entry = Entry.find(params[:id])
+
+    respond_to do |format|
+      format.json do
+        render json: {
+          elapsed_time: @entry.elapsed_time_in_seconds
+        }
+      end
+    end
+  end
+
   def update
     @entry = Entry.find(params[:id])
 
@@ -7,33 +19,11 @@ class TimersController < ApplicationController
     @entry.save
 
     respond_to do |format|
-      format.json { render json: {
-        elapsed_time: formatted_elapsed_time(@entry)
-      } }
+      format.json do
+        render json: {
+          elapsed_time: @entry.elapsed_time_in_seconds
+        }
+      end
     end
-  end
-
-  private
-
-  def formatted_elapsed_time(entry)
-    return "Timer running..." if entry.running?
-
-    formatted = []
-    total_seconds = entry.elapsed_time_in_seconds
-    hours = total_seconds / 3600
-    minutes = (total_seconds % 3600) / 60
-    seconds = total_seconds % 60
-
-    formatted << formatted_time(hours)
-    formatted << formatted_time(minutes)
-    formatted << formatted_time(seconds)
-
-    formatted.join(":")
-  end
-
-  def formatted_time(time)
-    return "00" if time == 0
-
-    sprintf "%02d", time
   end
 end

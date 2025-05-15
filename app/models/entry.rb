@@ -12,12 +12,14 @@ class Entry < ApplicationRecord
   end
 
   def elapsed_time_in_seconds
-    return 0 if timers.last.has_key?(:start)
-
     total_seconds = 0
 
     timers.each_slice(2) do |pair|
-      total_seconds += pair[1][:stop].to_i - pair[0][:start].to_i
+      if pair.size == 1
+        total_seconds += DateTime.now.to_i - pair[0][:start].to_i
+      else
+        total_seconds += pair[1][:stop].to_i - pair[0][:start].to_i
+      end
     end
 
     total_seconds

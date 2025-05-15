@@ -12,8 +12,6 @@ module EntriesHelper
   end
 
   def formatted_elapsed_time(entry)
-    return "Timer running..." if entry.running?
-
     formatted = []
     total_seconds = entry.elapsed_time_in_seconds
     hours = total_seconds / 3600

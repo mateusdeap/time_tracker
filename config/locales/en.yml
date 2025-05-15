@@ -30,6 +30,6 @@
 en:
   helpers:
     submit:
-      create: "Save"
+      create: "New Timer"
       update: "Save"
       submit: "Save"
