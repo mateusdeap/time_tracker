@@ -1,13 +1,11 @@
 <p style="color: green"><%= notice %></p>
 <% content_for :title, "Entries" %>
 <h1 class="text-5xl mb-6">Entries</h1>
-<%= form_with(model: @entry, class: "border mb-3" ,data: { turbo_frame: "create_entry" }) do |f| %>
-  <%= f.submit %>
+<%= form_with(model: @entry, class: "mb-4", data: { turbo_frame: "create_entry" }) do |f| %>
+  <%= f.submit "New Entry", class: "border border-green-500 hover:bg-green-500 hover:text-white px-2" %>
 <% end %>
-<%= turbo_frame_tag "entries" do %>
-  <div id="entries" class="flex flex-col items-start gap-2">
-    <% @entries.each do |entry| %>
-      <%= render entry %>
-    <% end %>
-  </div>
+<%= turbo_frame_tag "entries", class: "flex flex-col items-start gap-2" do %>
+  <% @entries.each do |entry| %>
+    <%= render entry %>
+  <% end %>
 <% end %>
