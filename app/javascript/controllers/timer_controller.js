@@ -5,7 +5,6 @@ export default class extends Controller {
   initialize() {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
     const id = this.element.dataset.id
-    const timerControl = document.querySelector(`#timer-control-${id}`)
     const elapsedTime = document.querySelector(`#elapsed_time_${id}`)
 
     fetch(`/timers/${id}`, {
@@ -19,12 +18,10 @@ export default class extends Controller {
     .then(response => response.json())
     .then(data => {
       this.elapsedTime = data.elapsed_time;
+      this.running = data.running;
+      elapsedTime.innerText = this.formattedElapsedTime();
 
-      if (timerControl.getAttribute("data-action") == "timer#start") {
-        this.running = false;
-      } else {
-        elapsedTime.innerText = this.formattedElapsedTime();
-        this.running = true;
+      if (this.running) {
         setTimeout(() => this.tic(), 1000);
       }
     });
@@ -34,7 +31,6 @@ export default class extends Controller {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
     const id = this.element.dataset.id
     const elapsedTime = document.querySelector(`#elapsed_time_${id}`)
-    const timerControl = document.querySelector(`#timer-control-${id}`)
 
     fetch(`/timers/${id}`, {
       method: "PATCH",
@@ -48,10 +44,8 @@ export default class extends Controller {
       .then(response => response.json())
       .then(data => {
         this.elapsedTime = data.elapsed_time;
-        elapsedTime.innerText = this.formattedElapsedTime();
-        timerControl.innerText = "Stop";
-        timerControl.setAttribute("data-action", "timer#stop");
         this.running = true;
+        elapsedTime.innerText = this.formattedElapsedTime();
         setTimeout(() => this.tic(), 1000);
       });
   }
@@ -60,7 +54,6 @@ export default class extends Controller {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
     const id = this.element.dataset.id
     const elapsedTime = document.querySelector(`#elapsed_time_${id}`)
-    const timerControl = document.querySelector(`#timer-control-${id}`)
 
     fetch(`/timers/${id}`, {
       method: "PATCH",
@@ -69,15 +62,16 @@ export default class extends Controller {
         "Accept": "application/json",
         "X-CSRF-Token": csrfToken
       },
-      body: JSON.stringify({ stop: "true" })
+      body: JSON.stringify({
+        stop: "true",
+        stop_time: Math.floor(Date.now()/1000)
+      })
     })
       .then(response => response.json())
       .then(data => {
         this.elapsedTime = data.elapsed_time;
-        elapsedTime.innerText = this.formattedElapsedTime();
-        timerControl.textContent = "Start"
-        timerControl.setAttribute("data-action", "timer#start")
         this.running = false;
+        elapsedTime.innerText = this.formattedElapsedTime();
       });
   }
   

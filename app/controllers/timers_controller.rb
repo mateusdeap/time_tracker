@@ -5,7 +5,8 @@ class TimersController < ApplicationController
     respond_to do |format|
       format.json do
         render json: {
-          elapsed_time: @entry.elapsed_time_in_seconds
+          elapsed_time: @entry.elapsed_time_in_seconds,
+          running: @entry.running?
         }
       end
     end
@@ -14,8 +15,8 @@ class TimersController < ApplicationController
   def update
     @entry = Entry.find(params[:id])
 
-    @entry.timers << { start: DateTime.now } if params[:start]
-    @entry.timers << { stop: DateTime.now } if params[:stop]
+    @entry.start_timer if params[:start]
+    @entry.stop_timer(params[:stop_time]) if params[:stop]
     @entry.save
 
     respond_to do |format|

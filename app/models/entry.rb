@@ -1,5 +1,5 @@
 class Entry < ApplicationRecord
-  serialize :timers, type: Array, coder: YAML, yaml: { permitted_classes: [ Symbol, DateTime, Time ] }
+  serialize :timers, type: Array, coder: YAML, yaml: { permitted_classes: [ Symbol, DateTime, Time, Rational ] }
 
   before_create :initialize_timers_array
 
@@ -8,7 +8,8 @@ class Entry < ApplicationRecord
   end
 
   def initialize_timers_array
-    timers << { start: DateTime.now }
+    self.timers = []
+    self.timers << { start: Time.now.to_i }
   end
 
   def elapsed_time_in_seconds
@@ -16,9 +17,9 @@ class Entry < ApplicationRecord
 
     timers.each_slice(2) do |pair|
       if pair.size == 1
-        total_seconds += DateTime.now.to_i - pair[0][:start].to_i
+        total_seconds += Time.now.to_i - pair[0][:start]
       else
-        total_seconds += pair[1][:stop].to_i - pair[0][:start].to_i
+        total_seconds += pair[1][:stop] - pair[0][:start]
       end
     end
 
@@ -33,5 +34,17 @@ class Entry < ApplicationRecord
     return 0 if running?
 
     timers.last[:stop]
+  end
+
+  def start_timer
+    return if running?
+
+    timers << { start: Time.now.to_i }
+  end
+
+  def stop_timer(stop_time)
+    return unless running?
+
+    timers << { stop: stop_time }
   end
 end

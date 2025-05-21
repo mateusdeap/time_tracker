@@ -17,7 +17,7 @@ class EntriesController < ApplicationController
   end
 
   def create
-    @entry = Entry.new()
+    @entry = Entry.new
 
     if @entry.save
       respond_to do |format|
