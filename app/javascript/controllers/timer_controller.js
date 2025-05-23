@@ -4,8 +4,8 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   initialize() {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
-    const id = this.element.dataset.id
-    const elapsedTime = document.querySelector(`#elapsed_time_${id}`)
+    const id = this.element.dataset.id;
+    const elapsedTime = document.querySelector(`#elapsed_time_${id}`);
 
     fetch(`/timers/${id}`, {
       method: "GET",
@@ -31,6 +31,8 @@ export default class extends Controller {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
     const id = this.element.dataset.id
     const elapsedTime = document.querySelector(`#elapsed_time_${id}`)
+    const playButton = document.querySelector(`#play-${id}`)
+    const stopButton = document.querySelector(`#stop-${id}`)
 
     fetch(`/timers/${id}`, {
       method: "PATCH",
@@ -45,6 +47,8 @@ export default class extends Controller {
       .then(data => {
         this.elapsedTime = data.elapsed_time;
         this.running = true;
+        playButton.classList.add("hidden")
+        stopButton.classList.remove("hidden")
         elapsedTime.innerText = this.formattedElapsedTime();
         setTimeout(() => this.tic(), 1000);
       });
@@ -54,6 +58,8 @@ export default class extends Controller {
     const csrfToken = document.querySelector("meta[name='csrf-token']").content;
     const id = this.element.dataset.id
     const elapsedTime = document.querySelector(`#elapsed_time_${id}`)
+    const playButton = document.querySelector(`#play-${id}`)
+    const stopButton = document.querySelector(`#stop-${id}`)
 
     fetch(`/timers/${id}`, {
       method: "PATCH",
@@ -71,6 +77,8 @@ export default class extends Controller {
       .then(data => {
         this.elapsedTime = data.elapsed_time;
         this.running = false;
+        playButton.classList.remove("hidden")
+        stopButton.classList.add("hidden")
         elapsedTime.innerText = this.formattedElapsedTime();
       });
   }
